@@ -7,16 +7,16 @@ class Ticket
   attr_accessor :customer_id, :film_id
 
 def initialize(options)
-  @customer_id = options['customer_id']
-  @film_id = options['film_id']
-  @id = options['id'].to_i if options ['id']
+  @customer_id = options['customer_id'].to_i
+  @film_id = options['film_id'].to_i
+  @id = options['id'].to_i if options['id']
 end
 
 def save()
   sql = "INSERT INTO tickets (customer_id, film_id) VALUES ($1, $2) RETURNING id"
   values = [@customer_id, @film_id]
-  tickets = SqlRunner.run(sql, values).first
-  return tickets[id].to_i
+  ticket = SqlRunner.run(sql, values).first
+  @id = ticket['id'].to_i
 end
 
 
@@ -26,5 +26,24 @@ def self.delete_all()
   SqlRunner.run(sql,values)
 
 end
+
+def self.all()
+  sql = "SELECT * FROM tickets"
+  tickets = SqlRunner.run(sql)
+  result = tickets.map {|ticket| Tickets.new(ticket)}
+  return result
+end
+
+# def customer()
+#   sql = "SELECT * FROM customers INNER JOIN tickets ON customer.id = tickets.customer_id WHERE tickets.ticket_id = $1"
+#   values = [@id]
+#   customer = SqlRunner.run(sql, values)
+#   return customer.map {|customer| Customer.new(customer)}
+#
+# end
+
+
+
+
 
 end

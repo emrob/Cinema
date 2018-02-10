@@ -15,7 +15,7 @@ class Film
     sql = "INSERT INTO films (title, price) VALUES ($1, $2) RETURNING id"
     values = [@title, @price]
     films = SqlRunner.run(sql, values).first
-    @id = films[id].to_i
+    @id = films['id'].to_i
 
   end
 

@@ -18,6 +18,14 @@ class Customer
     @id = customers['id'].to_i
   end
 
+  def films()
+    sql = "SELECT films.* FROM films INNER JOIN tickets ON films.id = tickets.film_id WHERE customer_id = $1 "
+    values = [@id]
+    films = SqlRunner.run(sql, values).first
+    return films.map {|film| Film.new(films)}
+
+  end
+
   def self.delete_all()
     sql = "DELETE FROM customers"
     values = []

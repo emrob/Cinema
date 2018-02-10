@@ -34,13 +34,13 @@ def self.all()
   return result
 end
 
-# def customer()
-#   sql = "SELECT * FROM customers INNER JOIN tickets ON customer.id = tickets.customer_id WHERE tickets.ticket_id = $1"
-#   values = [@id]
-#   customer = SqlRunner.run(sql, values)
-#   return customer.map {|customer| Customer.new(customer)}
-#
-# end
+def customer()
+  sql = "SELECT * FROM customers WHERE id = $1"
+  values = [@customer_id]
+  customer = SqlRunner.run(sql, values)[0]
+  return Customer.new(customer)
+
+end
 
 
 

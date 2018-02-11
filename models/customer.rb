@@ -49,17 +49,13 @@ class Customer
     return customer.map {|customer| Customer.new(customer)}
   end
 
-  # def ticket_sale()
-  #   sql = "UPDATE customers SET funds = $1 WHERE id = $3"
-  #   values = [@funds]
-  #   ticket_sale = SqlRunner.run(sql,values).first
-  #   return ticket_sale[@funds] -= 20
-  #   # ticket_sale = []
-  #   # if ticket_sale.count !nil
-  #   #   return
-  #   #   @funds -= 20
-  #   # end
-  # end
+  def ticket_sale()
+    sql = "UPDATE customers SET funds = $1 WHERE id = $3"
+    values = [@funds]
+    @id = customer[id].to_i
+    ticket_sale = SqlRunner.run(sql,values).first
+    return @funds -= 20
+  end
 
 
 

@@ -18,7 +18,7 @@ customer2 = Customer.new({
   'name' => 'Julie',
   'fund' => '100'
   })
-# customer2.update({'name' => 'Emily'})
+
 customer2.save()
 
 

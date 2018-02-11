@@ -19,7 +19,7 @@ class Customer
   end
 
   def films()
-    sql = "SELECT films.* FROM films INNER JOIN tickets ON film.id = tickets.film_id WHERE customer_id = $1 "
+    sql = "SELECT films.* FROM films INNER JOIN tickets ON films.id = tickets.film_id WHERE tickets.customer_id = $1 "
     values = [@id]
     films = SqlRunner.run(sql, values).first
     return films.map {|film| Film.new(films)}
@@ -48,6 +48,21 @@ class Customer
     customer = SqlRunner.run(sql,values).first
     return customer.map {|customer| Customer.new(customer)}
   end
+
+  # def ticket_sale()
+  #   sql = "UPDATE customers SET funds = $1 WHERE id = $3"
+  #   values = [@funds]
+  #   ticket_sale = SqlRunner.run(sql,values).first
+  #   return ticket_sale[@funds] -= 20
+  #   # ticket_sale = []
+  #   # if ticket_sale.count !nil
+  #   #   return
+  #   #   @funds -= 20
+  #   # end
+  # end
+
+
+
 
 
 end

@@ -42,21 +42,28 @@ class Customer
   end
 
   def update()
-    sql = "UPDATE customers SET name = $1 WHERE id = $3"
-    values = [@name]
-    @id = customer[id].to_i
+    sql = "UPDATE customers SET (name, funds) = ($1, $2) WHERE id = $3"
+    values = [@name, @funds, @id]
     customer = SqlRunner.run(sql,values).first
-    return customer.map {|customer| Customer.new(customer)}
   end
+
+  def buy_ticket(screening)
+    film = screening.film
+    price = film.price
+    Ticket.new('customer_id' => @id, 'film_id' => screening.film)
+    @funds -= film.price
+
+  end
+
+
 
   def ticket_sale()
     sql = "UPDATE customers SET funds = $1 WHERE id = $3"
     values = [@funds]
-    @id = customer[id].to_i
+    @id = customer['id'].to_i
     ticket_sale = SqlRunner.run(sql,values).first
     return @funds -= 20
   end
-
 
 
 

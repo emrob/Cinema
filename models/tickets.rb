@@ -34,6 +34,14 @@ def self.all()
   return result
 end
 
+def film()
+  sql = "SELECT * FROM films WHERE id = $1"
+  values = [@film_id]
+  film = SqlRunner.run(sql, values)[0]
+  return Film.new(film)
+
+end
+
 def customer()
   sql = "SELECT * FROM customers WHERE id = $1"
   values = [@customer_id]

@@ -21,6 +21,12 @@ customer2 = Customer.new({
 
 customer2.save()
 
+customer3 = Customer.new({
+  'name' => 'Jamie',
+  'fund' => '10'
+  })
+
+customer3.save()
 
 
 film1 = Film.new({
@@ -48,6 +54,11 @@ ticket2 = Ticket.new(
 )
 ticket2.save()
 
+ticket3 = Ticket.new(
+  'customer_id' => customer3.id,
+  'film_id' => film2.id
+)
+ticket3.save()
 
 
 
